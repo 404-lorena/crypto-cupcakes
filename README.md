@@ -105,3 +105,4 @@ res.send(req.oidc.isAuthenticated() ?
 <br>
 When you console.logged your user in terminal, check out the name of the keys being used. Thanks mattix23 for explaining that to me!
 </details>
+

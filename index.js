@@ -56,7 +56,9 @@ app.get('/', (req, res) => {
   <h3> Username: ${req.oidc.user.nickname}</h3>
   <img src=${req.oidc.user.picture}>
   <br> <br>
-  <button>Log Out</button>
+  <button onclick="window.location.href='http://localhost:3000/cupcakes';">Cupcakes</button>
+  <br> <br>
+    <button onclick="window.location.href='http://localhost:3000/logout';">Log Out</button>
   `
   : 
   'Logged out');
