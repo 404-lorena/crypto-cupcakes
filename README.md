@@ -9,7 +9,9 @@ A Cupcake API using Auth0's OIDC for authentication and OAuth for authorization
 * You should see information about cupcakes!
 * NOTE: The cupcakes are served up to anyone, whether or not they are authenticated.
 
-## Configure Auth0 Web App
+## Auth0 Implementation
+
+### Configure Auth0 Web App
 - [ ] Go to your CryptoCupcakesAPI from your Auth0 account you did previously in [Multiverse Auth0 Setup](https://app.codingrooms.com/app/course/google-back-end-module-CHcWTMx/b/f61d6b52-6470-465b-ac44-7b20e6f700a4)
 
 <details close>
@@ -21,13 +23,13 @@ From your Auth0 Dashboard (https://manage.auth0.com/dashboard/us/), select Appli
 - [ ] Click "Integrate Now" under "I want to integrate with my app"
 - [ ] Leave the defaults as is in the Configure Auth0 section and click "Save Settings and Continue"
 
-## Integrate Auth0 in our Express Application
+### Integrate Auth0 in our Express Application
 - [ ] Install dependencies and configure the router in your repo's terminal
 ```
 npm install express express-openid-connect --save
 ```
 
-## Configure Router
+### Configure Router
 The Express OpenID Connect library provides the auth router in order to attach authentication routes to your application. You will need to configure the router with the following configuration keys:
 * baseURL - The URL where the application is served
 * secret - A long, random string
@@ -72,6 +74,34 @@ const config = {
 * AUTH0_CLIENT_ID=your_id_here_from_auth0
 * AUTH0_BASE_URL=your_base_url_here_from_auth0
 
-
 - [ ] Restart `npm run start-dev` and visit http://localhost:3000/cupcakes
 * You should not be able to see it!
+
+
+## Token Data Usage
+GOAL: Let's personalize the homepage when a user visits
+
+### Get the User Data
+- [ ] Log the user data via `console.log(req.oidc.user)`
+* You should see the information populated your terminal
+
+- [ ] Use `req.oidc.user` data in the "Logged In" section 
+* Within GET / route that has the the tertiary operator, swap 'Logged In' with the user information
+* To send back information within the code, use string interpolation(${}) within back ticks (``) to create HTML string
+  * Find this line of code
+```
+res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+```
+
+* Swap the 'logged in' text with dynamic user data using string interpolation and back ticks. Here's an example.
+
+```
+res.send(req.oidc.isAuthenticated() ?  
+`<h1>Crypto Cupcakes</h1> 
+ <h2> Welcome, ${req.oidc.user.name}<h2>` : 'Logged out');
+```
+<details close>
+<summary>Where do I find the user data?</summary>
+<br>
+When you console.logged your user in terminal, check out the name of the keys being used. Thanks mattix23 for explaining that to me!
+</details>
