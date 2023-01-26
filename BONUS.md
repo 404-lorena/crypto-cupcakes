@@ -1,8 +1,10 @@
-# BONUS ROUND: GET /me Route
+# BONUS ROUND 
+
+## GET /me Route
 Let's create and send back a token
 
 
-## JWT
+### JWT
 - [ ] Install `jsonwebtoken` 
 ```
 npm install jsonwebtoken
@@ -21,7 +23,7 @@ JWT='somethingHonestlyItCanBeAnySecretYouWant'
 ```
 
 
-## GET /me Route
+### GET /me Route
 - [ ] Create /me route
 ```
 app.get("/me, async(req,res,next)=>{
@@ -74,7 +76,7 @@ res.status(401).send("No user");
 res.send({user, token})
 ```
 
-## Test it out
+### Test it out
 * Be sure you're logged in first. 
 
 - [ ] Visit http://localhost:3000/me 
@@ -85,4 +87,9 @@ res.send({user, token})
 You should get back an object in string form of the newly-created raw user data, as well as the token!
 </details>
 <br>
+
+## POST /cupcakes
+Let's create cupcakes!
+
+
 

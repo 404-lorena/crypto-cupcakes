@@ -57,7 +57,7 @@ app.use(async (req, res, next) => {
       }
     });
     console.log(user);
-    console.log(req.oidc.user)
+    // console.log(req.oidc.user)
     
     // call next() before the end of the route, to allow subsequent routers/routes to be matched
     next();
