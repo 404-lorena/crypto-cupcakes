@@ -133,7 +133,7 @@ const [user] = await User.findOrCreate({
 <br>
 Inside the middleware, you can use backticks (``) and intrepolate the req.oidc.user data.
 
-For example: username: `${req.oidc.user.nickname}`
+For example: username: ${req.oidc.user.nickname}
 </details>
 <br>
 

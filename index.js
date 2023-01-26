@@ -32,7 +32,7 @@ app.use(express.urlencoded({extended:true}));
   } = process.env;
   
   const config = {
-    authRequired: true, // this is different from the documentation
+    authRequired: false,
     auth0Logout: true,
     secret: AUTH0_SECRET,
     baseURL: AUTH0_AUDIENCE,

@@ -91,5 +91,9 @@ You should get back an object in string form of the newly-created raw user data,
 ## POST /cupcakes
 Let's create cupcakes!
 
+* NOTE: We're going to use POSTMAN now. In order for that to work, go back to our Auth0 config object where we authRequired is set to  true and change it to false. 
+```
+authRequired: false
+```
 
 
