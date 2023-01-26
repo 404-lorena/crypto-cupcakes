@@ -105,4 +105,49 @@ res.send(req.oidc.isAuthenticated() ?
 <br>
 When you console.logged your user in terminal, check out the name of the keys being used. Thanks mattix23 for explaining that to me!
 </details>
+<br>
+
+## [Add the User](https://app.codingrooms.com/app/course/google-back-end-module-CHcWTMx/b/1c6fbe4c-1ca1-411b-9cc0-3bdf593f765c)
+
+- [ ] Create a new piece of middleware that will run right after the Auth0 `auth(config)` router
+
+```
+app.use(async (req, res, next) => {
+  // you'll put your logic here
+});
+```
+
+- [ ] Use Sequelize’s `findOrCreate` to pass a user with their `username`, `name`, and `email`
+```
+const [user] = await User.findOrCreate({
+  where: {
+    username: "",
+    name: "",
+    email: ""
+  }
+});
+```
+
+<details close>
+<summary>How to use Dynamic User Data?</summary>
+<br>
+Inside the middleware, you can use backticks (``) and intrepolate the req.oidc.user data.
+
+For example: username: `${req.oidc.user.nickname}`
+</details>
+<br>
+
+- [ ] Call next() before the end of the route, to allow subsequent routers/routes to be matched
+```
+const [user] = await User.findOrCreate({
+  where: {
+    // properties mentioned above
+  }
+});
+
+// call the next after the variable user
+next()
+```
+
+
 

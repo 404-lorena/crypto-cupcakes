@@ -5,7 +5,7 @@ const app = express();
 const morgan = require('morgan');
 const { PORT = 3000 } = process.env;
 
-// TODO - require express-openid-connect and destructure auth from it
+// TO DO - require express-openid-connect and destructure auth from it
 const { auth } = require('express-openid-connect');
 
 
@@ -44,11 +44,31 @@ auth router attaches /login, /logout, and /callback routes to the baseURL
 */
 app.use(auth(config));
 
+// Create a new piece of middleware that will run right after the Auth0 auth(config) router
+app.use(async (req, res, next) => {
+  try{
+    const [user] = await User.findOrCreate({
+      where: {
+        username: `${req.oidc.user.nickname}`,
+        name: `${req.oidc.user.first_name}`,
+        email: `${req.oidc.user.email}`
+      }
+    });
+    console.log(user);
+    console.log(req.oidc.user)
+    
+    // call next() before the end of the route, to allow subsequent routers/routes to be matched
+    next();
+  }catch(error){
+    console.log(error);
+  }
+});
+
   /* create a GET / route handler that sends back Logged in or Logged out
 req.isAuthenticated is provided from the auth router
 */
 app.get('/', (req, res) => {
-  console.log(req.oidc.user);
+  // console.log(req.oidc.user);
   res.send(req.oidc.isAuthenticated() 
   ? 
   `<h1>Crypto Cupcakes</h1> 
@@ -66,11 +86,11 @@ app.get('/', (req, res) => {
 
 app.get('/cupcakes', async (req, res, next) => {
   try {
-    console.log(req.oidc.user)
+    // console.log(req.oidc.user)
     const cupcakes = await Cupcake.findAll();
     res.send(cupcakes);
   } catch (error) {
-    console.log(req.oidc.user)
+    // console.log(req.oidc.user)
     console.error(error);
     next(error);
   }
