@@ -1,4 +1,6 @@
 require('dotenv').config('.env');
+const jwt = require("jsonwebtoken");
+const { JWT_SECRET } = process.env; 
 const cors = require('cors');
 const express = require('express');
 const app = express();
@@ -83,6 +85,22 @@ app.get('/', (req, res) => {
   : 
   'Logged out');
 });
+
+// GET /me route
+app.get("/me", async(req,res,next)=> {
+  try{
+    // Find user with User.findOne
+    const user = await User.findOne({
+      where: {
+        username: req.oidc.user.nickname
+      }
+    })
+  }catch(error){
+    console.error(error);
+    next(error);
+  }
+})
+
 
 app.get('/cupcakes', async (req, res, next) => {
   try {
