@@ -93,8 +93,20 @@ app.get("/me", async(req,res,next)=> {
     const user = await User.findOne({
       where: {
         username: req.oidc.user.nickname
-      }
-    })
+      },
+      raw: true,
+    });
+
+    // If/else statement - Assign token with user. No user, no token
+    if(user){
+      const token = jwt.sign(user, JWT_SECRET, { expiresIn: '1w' });
+
+      // Send back the object {user, token}
+      res.send({user, token})
+
+    }else{
+      res.status(401).send("No user");
+    }
   }catch(error){
     console.error(error);
     next(error);
